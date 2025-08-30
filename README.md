@@ -22,3 +22,6 @@
 - Spring boot "RestController"
 - MySql
 - JWT e Spring Security "Bloqueio/proteção de acesso/rotas ao bd da aplicação"
+
+  <img width="1677" height="895" alt="image" src="[https://github.com/user-attachments/assets/6b24080a-7841-4efd-96e3-f0c47eda2e29](https://github.com/user-attachments/assets/5ebc95dd-16e9-4fcb-ba0d-5515b7b52410)" />
+
