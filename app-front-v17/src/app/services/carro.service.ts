@@ -49,5 +49,5 @@ export class CarroService {
   findById(id: number): Observable<Carro> {
     return this.http.get<Carro>(this.API + "/findById/" + id);
   }
-
 }
+//Todos esses endpoints vem da CarroController do back

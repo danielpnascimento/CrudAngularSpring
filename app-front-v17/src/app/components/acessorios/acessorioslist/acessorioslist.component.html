@@ -18,32 +18,27 @@
               <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Nome</th>
-                <!-- <th scope="col">Ano</th> -->
-                <!-- <th scope="col">Acessórios</th> -->
-                <th scope="col">Ações</th>
+                <th scope="col">Quantidade</th>
+                <th></th>
               </tr>
             </thead>
 
             <tbody>
               <!-- @for (carro of lista; track $index) { -->
-              @for (acessorio of listaAcessorio; track $index) {
+              @for (acessorio of lista; track $index) {
               <tr>
                 <td>{{acessorio.id}}</td>
                 <td>{{acessorio.nome}}</td>
-                <!-- <td>{{acessorio.ano}}</td> -->
+                <td>{{acessorio.quantidade}}</td>
 
                 <!-- Criar o css para direita sem afetar a linhas e desativa o de baixo -->
-                <td class="direita"></td>
-                <td class="d-flex justify-content-end">
-                  <!-- <button type="button" class="btn btn-primary btn-rounded me-3" mdbRipple
-                    routerLink="/admin/carros/edit/{{carro.id}}">Editar</button> -->
-
+                <td class="direita">
                   <!-- Esconde btn na modal -->
                   @if (esconderBtn) {
-                  <button type="button" class="btn btn-primary btn-rounded me-3 " mdbRipple
+                  <button type="button" class="btn btn-primary btn-rounded me-3" mdbRipple
                     (click)="select(acessorio)">Selecionar</button>
                   }@else {
-                  <button type="button" class="btn btn-primary btn-rounded me-3 " mdbRipple
+                  <button type="button" class="btn btn-primary btn-rounded me-3" mdbRipple
                     (click)="edit(acessorio)">Editar</button>
 
                   <button type="button" class="btn btn-danger btn-rounded" mdbRipple
@@ -54,30 +49,24 @@
               }
             </tbody>
           </table>
-
         </div>
       </div>
-
     </div>
   </div>
 </div>
 
-<!-- Usando as class do bootstrap para não criar css personalizado como no video -->
-
 <!-- Iniciando a utilização do modal ao inves de router -->
-<!-- <ng-template #modalCarroDetalhe> -->
 <ng-template #modalAcessorioDetalhe>
 
   <div class="modal-header">
-    <h5 class="modal-title" id="exampleModalLabel">Cadastro</h5>
+    <h5 class="modal-title" id="exampleModalLabel">Acessórios</h5>
     <button type="button" class="btn-close" aria-label="Close" (click)="modalRef.close()"></button>
   </div>
   <div class="modal-body">
 
     <!-- Reutilizando e adcionando o dado na input-->
     <!-- onde e recebe o retorno enviado da carrolist do metodo retornoDetalhe -->
-    <!-- <app-carrosdetails [carro]="carroEdit" (retorno)="retornoDetalhe($event)"></app-carrosdetails> -->
-    <app-acessoriosdetails [acessorio]="acessorioEdit" (retorno)="retornoDetalhe($event)"></app-acessoriosdetails>
+     <app-acessoriosdetails [acessorio]="acessorioEdit" (retorno)="retornoDetalhe($event)"></app-acessoriosdetails>
 
   </div>
 

@@ -1,0 +1,29 @@
+<div class="container pt-4">
+  <div class="row">
+    <div class="col-lg-12 centralizar topo">
+      <div class="card">
+        <div class="card-body">
+          <h3>Cadastre o Proprietário</h3>
+          <br>
+          <mdb-form-control>
+            <input mdbInput type="text" id="usuario" class="form-control" [(ngModel)]="proprietario.nome" />
+            <label mdbLabel class="form-label" for="usuario">Nome</label>
+          </mdb-form-control>
+          <br>
+          <mdb-form-control>
+            <input mdbInput type="text" id="usuario" class="form-control" [(ngModel)]="proprietario.idade" />
+            <label mdbLabel class="form-label" for="usuario">Idade</label>
+          </mdb-form-control>
+          <br>
+          <mdb-form-control>
+            <input mdbInput type="text" id="usuario" class="form-control" [(ngModel)]="proprietario.cnpj" />
+            <label mdbLabel class="form-label" for="usuario">Cnpj - Cpf</label>
+          </mdb-form-control>
+          <br>
+          <button type="button" class="btn btn-primary btn-rounded" mdbRipple (click)="save()">Salvar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+ <!-- Tela/form de cadastro de carro ao clicar no btn novo -->

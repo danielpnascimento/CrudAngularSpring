@@ -1,34 +1,37 @@
 <div class="container ">
-    <div class="row">
-        <div class="col-lg-4"></div>
-        <div class="col-lg-4 centralizar topo">
-            <div class="card">
-                <div class="card-body">
-                    <h3>Autentique-se</h3>
-                    <br>
-                    <mdb-form-control>
-                        <input mdbInput type="text" id="usuario" class="form-control" [(ngModel)]="usuario" />
-                        <label mdbLabel class="form-label" for="usuario">Usuário</label>
-                    </mdb-form-control>
-                    <br>
-                    <mdb-form-control>
-                        <input mdbInput type="password" id="senha" class="form-control" [(ngModel)]="senha" />
-                        <label mdbLabel class="form-label" for="senha">Senha:</label>
-                    </mdb-form-control>
-                    <br>
+  <div class="row">
+    <div class="col-lg-4"></div>
+    <div class="col-lg-4 centralizar topo">
+      <div class="card">
+        <div class="card-body">
+          <h3>Autentique-se</h3>
+          <br>
+          <mdb-form-control>
+            <!-- Habilitando o  keyup para logar com o enter -->
+            <!-- Sendo alterado na aula23 para JWT-->
+            <!-- <input mdbInput type="text" id="usuario" class="form-control" [(ngModel)]="usuario"
+              (keyup.enter)="logar()" /> -->
+            <input mdbInput type="text" id="usuario" class="form-control" [(ngModel)]="login.username"
+              (keyup.enter)="logar()" />
+            <label mdbLabel class="form-label" for="usuario">Usuário</label>
+          </mdb-form-control>
+          <br>
+          <mdb-form-control>
+            <!-- <input mdbInput type="password" id="senha" class="form-control" [(ngModel)]="senha"
+              (keyup.enter)="logar()" /> -->
+            <input mdbInput type="password" id="senha" class="form-control" [(ngModel)]="login.password"
+              (keyup.enter)="logar()" />
+            <label mdbLabel class="form-label" for="senha">Senha:</label>
+          </mdb-form-control>
+          <br>
 
-                    <button type="button" class="btn btn-primary btn-rounded" mdbRipple
-                        (click)="logar()">Acessar</button>
-                </div>
-            </div>
+          <button type="button" class="btn btn-primary btn-rounded" mdbRipple (click)="logar()">Acessar</button>
         </div>
-
-        <div class="col-lg-4"></div>
-
+      </div>
     </div>
+
+    <div class="col-lg-4"></div>
+
+  </div>
 </div>
 
-<!-- 
-https://www.youtube.com/watch?v=Hh6uLjawNpQ&ab_channel=WellingtondeOliveira
-
-https://mdbootstrap.com/docs/angular/components/cards/-->

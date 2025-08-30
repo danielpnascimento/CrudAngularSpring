@@ -50,3 +50,4 @@ export class MarcaService {
     return this.http.get<Marca>(this.API + "/findById/" + id);
   }
 }
+//Todos esses endpoints vem da CarroController do back

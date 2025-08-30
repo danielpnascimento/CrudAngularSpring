@@ -1,9 +1,7 @@
 package br.com.app.app.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,5 +20,11 @@ public class Proprietario {
     private long id;
     private String nome;
     private int idade;
+    private String cnpj;
+
+    //  Replicando para o CRUD Acessorio
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("proprietarios")
+    private Proprietario proprietario; // ou outro nome se for hierarquia de marcas
 
 }

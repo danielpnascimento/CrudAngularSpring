@@ -18,19 +18,20 @@
               <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Nome</th>
-                <th scope="col">Ações</th>
+                <th></th>
+                <!-- <th scope="col">Ações</th> -->
               </tr>
             </thead>
 
             <tbody>
               <!-- @for (carro of lista; track $index) { -->
-              @for (marca of listaMarca; track $index) {
+              @for (marca of lista; track $index) {
               <tr>
                 <td>{{marca.id}}</td>
                 <td>{{marca.nome}}</td>
                 <!-- Criar o css para direita sem afetar a linhas e desativa o de baixo -->
-                <td class="direita"></td>
-                <td class="d-flex justify-content-end">
+                <td class="direita">
+                  <!-- <td class="d-flex justify-content-end"> -->
                   <!-- <button type="button" class="btn btn-primary btn-rounded me-3" mdbRipple
                     routerLink="/admin/carros/edit/{{carro.id}}">Editar</button> -->
 
@@ -50,22 +51,17 @@
               }
             </tbody>
           </table>
-
         </div>
       </div>
-
     </div>
   </div>
 </div>
 
-<!-- Usando as class do bootstrap para não criar css personalizado como no video -->
-
 <!-- Iniciando a utilização do modal ao inves de router -->
-<!-- <ng-template #modalCarroDetalhe> -->
 <ng-template #modalMarcaDetalhe>
 
   <div class="modal-header">
-    <h5 class="modal-title" id="exampleModalLabel">Cadastro</h5>
+    <h5 class="modal-title" id="exampleModalLabel">Marcas</h5>
     <button type="button" class="btn-close" aria-label="Close" (click)="modalRef.close()"></button>
   </div>
   <div class="modal-body">

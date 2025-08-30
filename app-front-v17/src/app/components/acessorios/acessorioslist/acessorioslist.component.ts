@@ -1,56 +1,74 @@
 import { Component, EventEmitter, inject, Input, Output, TemplateRef, ViewChild } from '@angular/core';
-import { MdbModalModule, MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
-import Swal from 'sweetalert2';
-import { AcessoriosdetailsComponent } from "../acessoriosdetails/acessoriosdetails.component";
 import { Acessorio } from '../../../models/acessorio';
+import { RouterLink } from '@angular/router';
+import Swal from 'sweetalert2';
+import { MdbModalModule, MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
+import { AcessoriosdetailsComponent } from "../acessoriosdetails/acessoriosdetails.component";
 import { AcessorioService } from '../../../services/acessorio.service';
 
 @Component({
   selector: 'app-acessorioslist',
   standalone: true,
-  imports: [MdbModalModule, AcessoriosdetailsComponent],
+  imports: [RouterLink, MdbModalModule, AcessoriosdetailsComponent],
   templateUrl: './acessorioslist.component.html',
   styleUrl: './acessorioslist.component.scss'
 })
 export class AcessorioslistComponent {
-  listaAcessorio: Acessorio[] = [];
+  //Criando uma lista temp manual antes de chamar o bd
+  lista: Acessorio[] = [];
+  // Para modal
   acessorioEdit: Acessorio = new Acessorio(0, "");
 
   @Input("esconderBtn") esconderBtn: boolean = false;
   @Output("retorno") retorno = new EventEmitter<any>();
 
-  //Elementos da modal
-  modalService = inject(MdbModalService);;
+  //Trabalhando com modal e não router
+  modalService = inject(MdbModalService);
+  //Para o ng templante esconder e chama o modal
   @ViewChild("modalAcessorioDetalhe") modalAcessorioDetalhe!: TemplateRef<any>;
   modalRef!: MdbModalRef<any>;
 
   //Injetando para o back
-  AcessorioService = inject(AcessorioService);
+  acessorioService = inject(AcessorioService);
 
   constructor() {
+    //deixa igual o back
+    // this.findAll();
     this.listAll();
 
+    // this.lista.push(new Carro(1, 'Fiesta'));
+    // this.lista.push(new Carro(2, 'Monza'));
+    // this.lista.push(new Carro(3, 'Ka'));
+
+    //Usamos um recurso do Angular o history que vai setar esse novo ou editado carro na lista temp
     let acessorioNovo = history.state.acessorioNovo;
     let acessorioEditado = history.state.acessorioEditado;
 
     if (acessorioNovo) {
       //setando um id fixo para o novo
-      // marcaNovo.id = 555;
-      this.listaAcessorio.push(acessorioNovo);
+      acessorioNovo.id = 555;
+      this.lista.push(acessorioNovo);
     }
 
     if (acessorioEditado) {
-      let indice = this.listaAcessorio.findIndex(x => { return x.id == acessorioEditado.id });
-      this.listaAcessorio[indice] = acessorioEditado;
+      let indice = this.lista.findIndex(x => { return x.id == acessorioEditado.id });
+      this.lista[indice] = acessorioEditado;
     }
   }
 
+  //Deixa nomenclatura igual o back
+  //findAll() {
   listAll() {
-    this.AcessorioService.listAll().subscribe({
+    //Desativando o modo/dados temp/fixo/statico para chama o do back
+    //   this.lista.push(new Carro(1, 'Fiesta'));
+    //   this.lista.push(new Carro(2, 'Monza'));
+    //   this.lista.push(new Carro(3, 'Ka'));
+
+    this.acessorioService.listAll().subscribe({
       //Aqui retorna o Ok (requisições) do back
-      next: listaAcessorio => {
+      next: lista => {
         //Essa lista vem da lista do array acima, que recebe a lista do back!
-        this.listaAcessorio = listaAcessorio;
+        this.lista = lista;
       },
       //Aqui retorna erro (badrequest, exceptions) do back
       error: erro => {
@@ -60,15 +78,12 @@ export class AcessorioslistComponent {
           icon: 'error',
           confirmButtonText: 'Ok'
         });
-
       }
-
     });
-
-
   }
 
-
+  //Agora criar um for no html dele para chamar essa lista la do carroList
+  //E criamos o metodo deletar dessa lista temp pegando pelo indice/id e seu numero!
   deleteById(acessorio: Acessorio) {
     Swal.fire({
       title: 'Tem certeza que deseja deletar este registro?',
@@ -83,8 +98,10 @@ export class AcessorioslistComponent {
 
         //DELETAR
         //chamando o endpoint/metodo da carro.service deletar no botão
-        this.AcessorioService.delete(acessorio.id).subscribe({
+        this.acessorioService.delete(acessorio.id).subscribe({
           //Aqui retorna o Ok (requisições) do back
+          //troca o "lista" pela "mensagem" que e o titulo que vem
+          //do metodo do back que já trás o texto msg de lá!
           next: mensagem => {
             Swal.fire({
               title: mensagem,
@@ -103,12 +120,12 @@ export class AcessorioslistComponent {
               confirmButtonText: 'Ok'
             });
           }
-
         });
       }
     });
   }
-
+  //Para modal chamo o identificado da ng template para os metodos do btn new/edit
+  //e adciono o @input na carrodetails para trazer os dados no campo
   new() {
     this.acessorioEdit = new Acessorio(0, "");
     this.modalRef = this.modalService.open(this.modalAcessorioDetalhe);
@@ -128,13 +145,10 @@ export class AcessorioslistComponent {
     this.listAll();
     //Fechando a modal ao sair do evento
     this.modalRef.close();
-
   }
 
   // Pego o marca que vem do html
   select(acessorio: Acessorio) {
     this.retorno.emit(acessorio);
-
   }
-
 }

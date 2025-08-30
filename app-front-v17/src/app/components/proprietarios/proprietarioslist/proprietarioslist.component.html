@@ -1,0 +1,75 @@
+<div class="container p-4">
+  <div class="row">
+    <div class="col-lg-12">
+
+      <div class="card">
+        <div class="card-body">
+          <h3 class="d-flex justify-content-center">Lista de Proprietários</h3>
+          <div class="d-flex justify-content-end pb-3">
+            <!-- <button type="button" class="btn btn-primary btn-rounded me-3" mdbRipple routerLink="/admin/carros/new">
+              Novo</button> -->
+            <!-- Trabalhando com modal ao invés de rota -->
+            <button type="button" class="btn btn-primary btn-rounded me-3" mdbRipple (click)="new()">
+              Novo</button>
+          </div>
+
+          <table border="1" class="table table-striped ">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Idade</th>
+                <th scope="col">Cnpj - Cpf</th>
+                <th></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              @for (proprietario of lista; track $index) {
+              <tr>
+                <td>{{proprietario.id}}</td>
+                <td>{{proprietario.nome}}</td>
+                <td>{{proprietario.idade}}</td>
+                <td>{{proprietario.cnpj}}</td>
+
+                <!-- Criar o css para direita sem afetar a linhas e desativa o de baixo -->
+                <td class="direita">
+
+                  <!-- Esconde btn na modal -->
+                  @if (esconderBtn) {
+                  <button type="button" class="btn btn-primary btn-rounded me-3" mdbRipple
+                    (click)="select(proprietario)">Selecionar</button>
+                  }@else {
+                  <button type="button" class="btn btn-primary btn-rounded me-3" mdbRipple
+                    (click)="edit(proprietario)">Editar</button>
+
+                  <button type="button" class="btn btn-danger btn-rounded" mdbRipple
+                    (click)="deleteById(proprietario)">Deletar</button>
+                  }
+                </td>
+              </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Iniciando a utilização do modal ao inves de router -->
+<ng-template #modalProprietarioDetalhe>
+
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Proprietário</h5>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modalRef.close()"></button>
+  </div>
+  <div class="modal-body">
+
+    <!-- Reutilizando e adcionando o dado na input-->
+    <!-- onde e recebe o retorno enviado da carrolist do metodo retornoDetalhe -->
+    <app-proprietariosdetails [proprietario]="proprietarioEdit" (retorno)="retornoDetalhe($event)"></app-proprietariosdetails>
+
+  </div>
+
+</ng-template>

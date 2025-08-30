@@ -18,32 +18,38 @@ public class CarroService {
     public String save(Carro carro) {
 
         //Regra de negócio
-        this.verificarNomeCarro(carro.getNome(), carro.getAno());
+//        this.verificarNomeCarro(carro.getNome(), carro.getAno());
 
         //Chamando repository para instanciar no banco
         this.carroRepository.save(carro);
         //return "Carro salvo com sucesso!";
-        return carro.getNome() + " Carro salvo com sucesso!";
+        return carro.getNome() + " - Carro salvo com sucesso!";
     }
 
     //Regra de negócio
-    public boolean verificarNomeCarro(String nome, int ano) {
-        if (nome.equals("Jeep Compass") && ano < 2006)
-            throw new RuntimeException();
-        return true;
-    }
+//    public boolean verificarNomeCarro(String nome, int ano) {
+//        if (nome.equals("Jeep Compass") && ano < 2006)
+//            throw new RuntimeException();
+//        return true;
+//    }
 
     public String update(Carro carro, long id) {
 
-        this.verificarNomeCarro(carro.getNome(), carro.getAno());
+//        this.verificarNomeCarro(carro.getNome(), carro.getAno());
 
         carro.setId(id);
         //Para não confundir com save do post aqui em cima
         //Criamos um set para setar em um id existênte!
         this.carroRepository.save(carro);
         //return "Carro atualizado com sucesso!";
-        return carro.getNome() + " Carro atualizado com sucesso!";
+        return carro.getNome() + " - Carro atualizado com sucesso!";
     }
+
+    public String delete(long id) {
+        this.carroRepository.deleteById(id);
+        return " Carro deletado com sucesso!";
+    }
+
     //renomeado o findAll para listAll pq ele mudou na aula 16 para o front
     public List<Carro> listAll() {
         //esse findAll não muda!
@@ -56,12 +62,7 @@ public class CarroService {
         return carro;
     }
 
-    public String delete(long id) {
-        this.carroRepository.deleteById(id);
-        return " Carro deletado com sucesso!";
-    }
-
-    //Criação de filtro customizados "nome"
+    //Criação de filtro customizados "nome" Consultas JPQL
     public List<Carro> findByNome(String nome) {
         return this.carroRepository.findByNome(nome);
     }
@@ -88,6 +89,5 @@ da controller e para a repository persistir no banco
 "Função do service e processar as regras de negócio para a controller"
 Aula 06c Regras de Negócio
 https://youtu.be/-d7DizM6aNM?si=xjqEp1Wg5fFZaKWS
-Checar amanha pq está passando!
 
 */

@@ -1,10 +1,10 @@
-import { CarroService } from './../../../services/carro.service';
-import { Component, inject, TemplateRef, ViewChild, viewChild } from '@angular/core';
+import { Component, inject, TemplateRef, ViewChild } from '@angular/core';
 import { Carro } from '../../../models/carro';
 import { RouterLink } from '@angular/router';
 import Swal from 'sweetalert2';
 import { MdbModalModule, MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { CarrosdetailsComponent } from "../carrosdetails/carrosdetails.component";
+import { CarroService } from './../../../services/carro.service';
 
 @Component({
   selector: 'app-carroslist',
@@ -17,7 +17,7 @@ export class CarroslistComponent {
 
   //Criando uma lista com dados temp manual antes de chamar o do bd
   lista: Carro[] = [];
-  carroEdit: Carro = new Carro(0, "", null);
+  carroEdit: Carro = new Carro(0, "");
 
   //Trabalhando com modal e não router
   modalService = inject(MdbModalService);
@@ -26,7 +26,7 @@ export class CarroslistComponent {
   modalRef!: MdbModalRef<any>;
 
   //Injetando para o back
-  CarroService = inject(CarroService);
+  carroService = inject(CarroService);
 
   constructor() {
     //deixa igual o back
@@ -39,7 +39,7 @@ export class CarroslistComponent {
 
     if (carroNovo) {
       //setando um id fixo para o novo
-      // carroNovo.id = 555;
+      carroNovo.id = 555;
       this.lista.push(carroNovo);
     }
 
@@ -57,7 +57,7 @@ export class CarroslistComponent {
     //   this.lista.push(new Carro(2, 'Monza'));
     //   this.lista.push(new Carro(3, 'Ka'));
 
-    this.CarroService.listAll().subscribe({
+    this.carroService.listAll().subscribe({
       //Aqui retorna o Ok (requisições) do back
       next: lista => {
         //Essa lista vem da lista do array acima, que recebe a lista do back!
@@ -71,15 +71,11 @@ export class CarroslistComponent {
           icon: 'error',
           confirmButtonText: 'Ok'
         });
-
       }
-
     });
-
   }
 
   //Agora criar um for no html dele para chamar essa lista la do carroList
-
   //E criamos o metodo deletar dessa lista temp pegando pelo indice/id e seu numero!
   deleteById(carro: Carro) {
     Swal.fire({
@@ -95,7 +91,7 @@ export class CarroslistComponent {
 
         //DELETAR
         //chamando o endpoint/metodo da carro.service deletar no botão
-        this.CarroService.delete(carro.id).subscribe({
+        this.carroService.delete(carro.id).subscribe({
           //Aqui retorna o Ok (requisições) do back
           //troca o "lista" pela "mensagem" que e o titulo que vem
           //do metodo do back que já trás o texto msg de lá!
@@ -117,37 +113,16 @@ export class CarroslistComponent {
               confirmButtonText: 'Ok'
             });
           }
-
         });
-
-
-        //Esse indice manual de tirar agora e desativado pelo metodo delete acima!
-        //pq não tinha back
-        // let indice = this.lista.findIndex(x => { return x.id == carro.id });
-        // this.lista.splice(indice, 1);
-
-        //Sendo retirado e colocado no dentro do next que concluir e deu certo a requisição
-        // Swal.fire({
-        //   title: 'Deletado com Sucesso!',
-        //   // text: 'Editado com Sucesso!',
-        //   icon: 'success',
-        //   confirmButtonText: 'Ok'
-        // });
       }
     });
-
-    //Desativado para usar o Swal.fire do sweetalert2 para estilo
-    // if (confirm("Tem certeza que deseja deletar este registro?")) {
-    // let indice = this.lista.findIndex(x => { return x.id == carro.id });
-    // this.lista.splice(indice, 1);
-    //    }
   }
 
   //Para modal chamo o identificado da ng template para os metodos do btn new/edit
   //e adciono o @input na carrodetails para trazer os dados no campo
   new() {
     // Aqui para novo ele limpa o input
-    this.carroEdit = new Carro(0, "", null);
+    this.carroEdit = new Carro(0, "");
     this.modalRef = this.modalService.open(this.modalCarroDetalhe);
   };
 
@@ -163,35 +138,12 @@ export class CarroslistComponent {
   //LISTAR
   //metodo da modal retornoDetalhe
   retornoDetalhe(carro: Carro) {
-    //Desativado após a inclusão do save e update com o back
-    // //Persistindo na lista se for edição
-    // if (carro.id > 0) {
-    //   let indice = this.lista.findIndex(x => { return x.id == carro.id });
-    //   this.lista[indice] = carro;
-    // } else {
-    //   //se for novo "idfixo temp"
-    //   carro.id = 55;
-    //   this.lista.push(carro);
-    // }
     //incluindo apenas o reflesh
     this.listAll();
     //Fechando a modal ao sair do evento
     this.modalRef.close();
 
   }
-
-
 }
 
-//Aula 14
-//https://www.youtube.com/watch?v=J5Vd2aWKwyI&ab_channel=WellingtondeOliveira
-//Aula 13
-//https://www.youtube.com/watch?v=3FWhqzG39UQ&ab_channel=WellingtondeOliveira
-//Aula 16
-// Resumindo não e desativado o array e sim os dados fixo/temp que foram setado
-// de teste antes de chamar os do back!
-//https://www.youtube.com/watch?v=8hhVQ5EG_rs
-//Aula 17 listAll/deleteById
-// https://youtu.be/2CceZICVDRI?si=e2ppK8enYibvuQVR
-//Aula 18 findById/save/update
-// https://youtu.be/2PYlE8F15og?si=eqBiwAoraFmbtgL2
+
