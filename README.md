@@ -12,7 +12,7 @@
 - MySql
 - JWT e Spring Security "Bloqueio/proteção de acesso/rotas ao bd da aplicação"
 
-## Autores
+## Autor
 
 - https://youtu.be/mzF7OEd8SRE?si=KAE6G18hz0gDyKI0
 
