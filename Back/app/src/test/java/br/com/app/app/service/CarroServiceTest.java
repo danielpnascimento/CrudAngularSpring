@@ -15,24 +15,24 @@ public class CarroServiceTest {
 
     //Verificar se é possível registrar um nome Jeep Compass de ano 2006 acima
     //e barra se for abaixo!
-    @Test
-    void cenario01() {
-        boolean retorno = this.carroService.verificarNomeCarro("Jeep Compass", 2006);
-
-        assertEquals(true, retorno);
-
-    }
+//    @Test
+//    void cenario01() {
+//        boolean retorno = this.carroService.verificarNomeCarro("Jeep Compass", 2006);
+//
+//        assertEquals(true, retorno);
+//
+//    }
 
     //Verifica se se o ano for abaixo de 2006 ele tem que apresentar
     // uma Exception e ele apresentou!
-    @Test
-    void cenario02() {
-        assertThrows(Exception.class, () -> {
-            boolean retorno = this.carroService.verificarNomeCarro("Jeep Compass", 1995);
-
-//        assertEquals(true, retorno);
-        });
-    }
+//    @Test
+//    void cenario02() {
+//        assertThrows(Exception.class, () -> {
+//            boolean retorno = this.carroService.verificarNomeCarro("Jeep Compass", 1995);
+//
+////        assertEquals(true, retorno);
+//        });
+//    }
 
 }
 

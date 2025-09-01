@@ -13,10 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 @SuppressWarnings("ALL")
 @RestController
 @RequestMapping("/api/login")
+
 //Tira da url publica e seta a original dela ou
 // uma personalizada quando for para deploy!
-//@CrossOrigin("*")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin("*")
+//@CrossOrigin(origins = "http://localhost:4200")
 public class LoginController {
 
     @Autowired
