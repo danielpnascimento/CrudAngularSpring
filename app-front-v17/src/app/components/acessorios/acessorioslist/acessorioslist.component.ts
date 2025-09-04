@@ -1,7 +1,8 @@
 import { Component, EventEmitter, inject, Input, Output, TemplateRef, ViewChild } from '@angular/core';
 import { Acessorio } from '../../../models/acessorio';
 import { RouterLink } from '@angular/router';
-import Swal from 'sweetalert2';
+// import Swal from 'sweetalert2';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { MdbModalModule, MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { AcessoriosdetailsComponent } from "../acessoriosdetails/acessoriosdetails.component";
 import { AcessorioService } from '../../../services/acessorio.service';

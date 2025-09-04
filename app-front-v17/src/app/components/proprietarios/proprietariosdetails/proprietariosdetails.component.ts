@@ -3,7 +3,8 @@ import { FormsModule } from '@angular/forms';
 import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
 import { Proprietario } from '../../../models/proprietario';
 import { ActivatedRoute, Router } from '@angular/router';
-import Swal from 'sweetalert2';
+// import Swal from 'sweetalert2';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { ProprietarioService } from '../../../services/proprietario.service';
 
 @Component({

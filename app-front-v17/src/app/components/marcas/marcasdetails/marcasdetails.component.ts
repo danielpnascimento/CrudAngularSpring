@@ -4,7 +4,8 @@ import { MdbFormsModule } from "mdb-angular-ui-kit/forms";
 import { Marca } from '../../../models/marca';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MarcaService } from './../../../services/marca.service';
-import Swal from 'sweetalert2'
+// import Swal from 'sweetalert2';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
   selector: 'app-marcasdetails',

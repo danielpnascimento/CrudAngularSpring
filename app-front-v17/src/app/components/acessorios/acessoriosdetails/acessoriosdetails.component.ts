@@ -4,7 +4,8 @@ import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
 import { Acessorio } from '../../../models/acessorio';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AcessorioService } from '../../../services/acessorio.service';
-import Swal from 'sweetalert2'
+// import Swal from 'sweetalert2';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
   selector: 'app-acessoriosdetails',

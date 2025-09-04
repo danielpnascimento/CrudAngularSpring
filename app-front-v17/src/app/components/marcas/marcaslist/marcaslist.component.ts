@@ -1,7 +1,8 @@
 import { Component, inject, TemplateRef, ViewChild, EventEmitter, Output, Input } from '@angular/core';
 import { Marca } from './../../../models/marca';
 import { RouterLink } from '@angular/router';
-import Swal from 'sweetalert2';
+// import Swal from 'sweetalert2';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { MdbModalModule, MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { MarcasdetailsComponent } from '../marcasdetails/marcasdetails.component';
 import { MarcaService } from './../../../services/marca.service';

@@ -5,7 +5,8 @@ import { MdbFormsModule } from "mdb-angular-ui-kit/forms";
 import { Carro } from '../../../models/carro';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CarroService } from './../../../services/carro.service';
-import Swal from 'sweetalert2'
+// import Swal from 'sweetalert2';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { Marca } from '../../../models/marca';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { MarcaslistComponent } from "../../marcas/marcaslist/marcaslist.component";
@@ -103,7 +104,7 @@ export class CarrosdetailsComponent {
 
     } else {
 
-       //SALVAR
+      //SALVAR
       this.carroService.save(this.carro).subscribe({
         // this.carroService.save(carroParaSalvar).subscribe({
         next: mensagem => {
