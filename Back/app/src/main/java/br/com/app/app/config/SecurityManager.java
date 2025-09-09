@@ -18,7 +18,7 @@ import br.com.app.app.auth.LoginRepository;
 
 @Configuration
 public class SecurityManager {
-	
+
 	@Autowired
 	private LoginRepository loginRepository;
 	
@@ -48,6 +48,4 @@ public class SecurityManager {
 		return username -> loginRepository.findByUsername(username)
 				.orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado") );
 	}
-
-
 }

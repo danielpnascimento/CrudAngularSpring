@@ -24,54 +24,54 @@ import org.springframework.web.filter.CorsFilter;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
-public class SecurityConfig  {
+public class SecurityConfig {
 
-	@Autowired
-	private JwtAuthenticationFilter jwtAuthFilter;
+    @Autowired
+    private JwtAuthenticationFilter jwtAuthFilter;
 
-	@Autowired
-	private AuthenticationProvider authenticationProvider;
+    @Autowired
+    private AuthenticationProvider authenticationProvider;
 
 
-	///////////////////////////////////////////////////////
+    /// ////////////////////////////////////////////////////
 
-	@Bean
-	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http    
-		.csrf(AbstractHttpConfigurer::disable)
-		.cors(AbstractHttpConfigurer::disable)
-		.authorizeHttpRequests((requests) -> requests
-				//Acesso permitido/publico que vai para o endpoint do front
-				// login.service.ts API = "http://localhost:8080/api/login";
-				.requestMatchers("/api/login").permitAll()
-				//Acesso para cadastro de login ñ foi trabalhado
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+                .csrf(AbstractHttpConfigurer::disable)
+                .cors(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests((requests) -> requests
+                        //Acesso permitido/publico que vai para o endpoint do front
+                        // login.service.ts API = "http://localhost:8080/api/login";
+                        .requestMatchers("/api/login").permitAll()
+                        //Acesso para cadastro de login ñ foi trabalhado
 //				.requestMatchers("/api/usuario/save").permitAll()
 //				.requestMatchers("/api/register").permitAll()
-				.anyRequest().authenticated())
-		.authenticationProvider(authenticationProvider)
-				//E ai cai no filtro do jwtAuthFilter
-		.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-		.sessionManagement(customizer -> customizer.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+                        .anyRequest().authenticated())
+                .authenticationProvider(authenticationProvider)
+                //E ai cai no filtro do jwtAuthFilter
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                .sessionManagement(customizer -> customizer.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-		return http.build();
-	}
+        return http.build();
+    }
 
-	///////////////////////////////////////////////////////
+    /// ////////////////////////////////////////////////////
 
 
-	@Bean
-	public FilterRegistrationBean<CorsFilter> corsFilter() {
-		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		CorsConfiguration config = new CorsConfiguration();
-		config.setAllowCredentials(true);
-//		config.setAllowedOriginPatterns(Arrays.asList("*"));
-		config.setAllowedOriginPatterns(Arrays.asList("http://localhost:4200"));
-		config.setAllowedHeaders(Arrays.asList(HttpHeaders.AUTHORIZATION,HttpHeaders.CONTENT_TYPE,HttpHeaders.ACCEPT));
-		config.setAllowedMethods(Arrays.asList(HttpMethod.GET.name(),HttpMethod.POST.name(),HttpMethod.PUT.name(),HttpMethod.DELETE.name()));
-		config.setMaxAge(3600L);
-		source.registerCorsConfiguration("/**", config);
-		FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<CorsFilter>(new CorsFilter(source));
-		bean.setOrder(-102);
-		return bean;
-	}
+    @Bean
+    public FilterRegistrationBean<CorsFilter> corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(true);
+        config.setAllowedOriginPatterns(Arrays.asList("*"));
+//        config.setAllowedOriginPatterns(Arrays.asList("http://localhost:4200"));
+        config.setAllowedHeaders(Arrays.asList(HttpHeaders.AUTHORIZATION, HttpHeaders.CONTENT_TYPE, HttpHeaders.ACCEPT));
+        config.setAllowedMethods(Arrays.asList(HttpMethod.GET.name(), HttpMethod.POST.name(), HttpMethod.PUT.name(), HttpMethod.DELETE.name()));
+        config.setMaxAge(3600L);
+        source.registerCorsConfiguration("/**", config);
+        FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<CorsFilter>(new CorsFilter(source));
+        bean.setOrder(-102);
+        return bean;
+    }
 }
