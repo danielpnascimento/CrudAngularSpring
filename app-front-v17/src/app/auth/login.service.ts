@@ -15,7 +15,8 @@ export class LoginService {
   // API = environment.SERVIDOR+"/api/login";
   // Igual da Aula23
   // Sendo um endpoint que vem da class SecurityConfig da auth do back
-  API = "http://localhost:8080/api/login";
+  // API = "http://localhost:8080/api/login";
+  API = "http://crudangularspring-production.up.railway.app/api/login";
 
 
   constructor() { }
@@ -58,5 +59,5 @@ export class LoginService {
   getUsuarioLogado() {
     return this.jwtDecode() as Usuario;
   }
-  
+
 }
