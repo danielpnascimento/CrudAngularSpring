@@ -64,6 +64,7 @@ public class SecurityConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
+//        Deixar a * publica geral ou seta a url do back em produção pq senão vai travar o login se tiver com a 4200
         config.setAllowedOriginPatterns(Arrays.asList("*"));
 //        config.setAllowedOriginPatterns(Arrays.asList("http://localhost:4200"));
         config.setAllowedHeaders(Arrays.asList(HttpHeaders.AUTHORIZATION, HttpHeaders.CONTENT_TYPE, HttpHeaders.ACCEPT));
