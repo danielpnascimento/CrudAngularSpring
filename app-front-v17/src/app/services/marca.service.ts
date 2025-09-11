@@ -12,7 +12,8 @@ export class MarcaService {
   http = inject(HttpClient);
 
   //Criando um variável para abreviar a rota de saida do back
-  API = "http://localhost:8080/api/marca";
+  // API = "http://localhost:8080/api/marca";
+  API = "https://crudangularspring-production.up.railway.app/api/marca";
 
   constructor() { }
 

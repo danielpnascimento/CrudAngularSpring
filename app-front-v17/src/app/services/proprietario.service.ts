@@ -11,7 +11,8 @@ export class ProprietarioService {
   http = inject(HttpClient);
 
   //Criando um variável para abreviar a rota de saida do back
-  API = "http://localhost:8080/api/proprietario";
+  // API = "http://localhost:8080/api/proprietario";
+  API = "https://crudangularspring-production.up.railway.app/api/proprietario";
 
   constructor() { }
 

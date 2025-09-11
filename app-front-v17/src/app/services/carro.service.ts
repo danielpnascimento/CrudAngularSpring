@@ -12,7 +12,8 @@ export class CarroService {
   http = inject(HttpClient);
 
   //Criando um variável para abreviar a rota de saida do back
-  API = "http://localhost:8080/api/carro";
+  // API = "http://localhost:8080/api/carro";
+  API = "https://crudangularspring-production.up.railway.app/api/carro";
 
   constructor() { }
 
