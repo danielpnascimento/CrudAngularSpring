@@ -5,11 +5,13 @@ import Swal from 'sweetalert2';
 import { MdbModalModule, MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { CarrosdetailsComponent } from "../carrosdetails/carrosdetails.component";
 import { CarroService } from './../../../services/carro.service';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-carroslist',
   standalone: true,
-  imports: [RouterLink, MdbModalModule, CarrosdetailsComponent],
+  imports: [RouterLink, MdbModalModule, CarrosdetailsComponent, CommonModule, FormsModule],
   templateUrl: './carroslist.component.html',
   styleUrl: './carroslist.component.scss'
 })
@@ -18,6 +20,11 @@ export class CarroslistComponent {
   //Criando uma lista com dados temp manual antes de chamar o do bd
   lista: Carro[] = [];
   carroEdit: Carro = new Carro(0, "");
+
+  //Paginação
+  pageSize = 7;     // registros por página
+  currentPage = 1;  // página atual
+  totalPages = 1;   // calculado automaticamente
 
   //Trabalhando com modal e não router
   modalService = inject(MdbModalService);
@@ -62,6 +69,9 @@ export class CarroslistComponent {
       next: lista => {
         //Essa lista vem da lista do array acima, que recebe a lista do back!
         this.lista = lista;
+
+        // Paginação: Calcula a quantidade total de páginas depois que os dados chegaram
+        this.totalPages = Math.ceil(this.lista.length / this.pageSize);
       },
       //Aqui retorna erro (badrequest, exceptions) do back
       error: erro => {
@@ -116,6 +126,8 @@ export class CarroslistComponent {
         });
       }
     });
+    // Paginação
+    console.log('deletar', carro);
   }
 
   //Para modal chamo o identificado da ng template para os metodos do btn new/edit
@@ -133,6 +145,8 @@ export class CarroslistComponent {
     //for digitado e cancelado o dado acaba sendo registrado
     this.carroEdit = Object.assign({}, carro);
     this.modalRef = this.modalService.open(this.modalCarroDetalhe);
+    // Paginação
+    console.log('editar', carro);
   }
 
   //LISTAR
@@ -142,8 +156,41 @@ export class CarroslistComponent {
     this.listAll();
     //Fechando a modal ao sair do evento
     this.modalRef.close();
+  }
+//Paginação
+  get totalPagesArray() {
+    return Array(this.totalPages).fill(0).map((_, i) => i + 1);
+  }
 
+  getItemsPaginated() {
+    const start = (this.currentPage - 1) * this.pageSize;
+    return this.lista.slice(start, start + this.pageSize);
+  }
+
+  changePage(page: number) {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+    }
+  }
+
+  onPageSizeChange() {
+    this.totalPages = Math.ceil(this.lista.length / this.pageSize);
+    this.currentPage = 1; // volta para a primeira página
+  }
+
+  // Paginação itens
+  previousPage() {
+    if (this.currentPage > 1) this.currentPage--;
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) this.currentPage++;
+  }
+
+  goToPage(page: number) {
+    this.currentPage = page;
   }
 }
+
 
 

@@ -9,53 +9,89 @@
             <!-- <button type="button" class="btn btn-primary btn-rounded me-3" mdbRipple routerLink="/admin/carros/new">
               Novo</button> -->
             <!-- Trabalhando com modal ao invés de rota -->
-            <button type="button" class="btn btn-primary btn-rounded me-3" mdbRipple (click)="new()">
+            <button type="button" class="btn btn-primary btn-rounded me-3 px-3 py-1 px-sm-4 py-lg-2" mdbRipple
+              (click)="new()">
               Novo</button>
           </div>
 
-          <table border="1" class="table table-striped">
-            <thead>
-              <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Nome</th>
-                <th scope="col">Marca</th>
-                <th scope="col">Ano</th>
-                <th></th>
-                <!-- <th scope="col">Ações</th> -->
-              </tr>
-            </thead>
+          <div class="table-wrapper ">
+            <table border="1" class="table table-striped table-sm align-middle">
+              <thead>
+                <tr class="table-light">
+                  <th scope="col">#</th>
+                  <th scope="col">Nome</th>
+                  <th scope="col">Marca</th>
+                  <th scope="col">Ano</th>
+                  <th></th>
+                  <!-- <th scope="col">Ações</th> -->
+                </tr>
+              </thead>
 
-            <tbody>
-              @for (carro of lista; track $index) {
-              <tr>
-                <td>{{carro.id}}</td>
-                <td>{{carro.nome}}</td>
-                @if (carro.marca) {
-                <td>{{carro.marca.nome}}</td>
-                }@else {
-                <td>---</td>
+              <tbody class="small-responsive">
+                <!-- Com paginação automatica jogando/pegando a lista na ts -->
+                @for (carro of getItemsPaginated(); track $index) {
+                <tr>
+                  <td>{{carro.id}}</td>
+                  <td class="text-break">{{carro.nome}}</td>
+                  @if (carro.marca) {
+                  <td class="text-break">{{carro.marca.nome}}</td>
+                  }@else {
+                  <td>---</td>
+                  }
+                  <td>{{carro.ano}}</td>
+                  <!-- Importar o routerLink -->
+                  <!-- Criar o css para direita sem afetar a linhas e desativa o de baixo -->
+                  <!-- <td class="direita"> -->
+                  <td>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                      <!-- modal -->
+                      <button type="button" class="btn btn-primary btn-rounded px-3 py-1 px-sm-4 py-lg-2"
+                        mdbRipple (click)="edit(carro)">Editar</button>
+
+                      <button type="button" class="btn btn-danger btn-rounded px-3 py-1 px-sm-4 py-lg-2"
+                        mdbRipple (click)="deleteById(carro)">Deletar</button>
+                    </div>
+                  </td>
+                </tr>
                 }
-                <td>{{carro.ano}}</td>
-                <!-- Importar o routerLink -->
-                <!-- Criar o css para direita sem afetar a linhas e desativa o de baixo -->
-                <td class="direita ">
-                  <!-- <td class="d-flex justify-content-end"> -->
-                  <!-- <button type="button" class="btn btn-primary btn-rounded me-3" mdbRipple
-                    routerLink="/admin/carros/edit/{{carro.id}}">Editar</button> -->
+              </tbody>
+            </table>
+          </div>
+          <!-- Dropdown -->
+          <div class="d-flex justify-content-between align-items-center mt-3">
+            <div>
+              <label for="pageSize" class="me-2 small-responsive">Itens por página</label>
+              <select id="pageSize" class="form-select d-inline-block w-auto small-responsive" [(ngModel)]="pageSize"
+                (change)="onPageSizeChange()">
+                <option [value]="5">5</option>
+                <option [value]="10">10</option>
+                <option [value]="20">20</option>
+                <option [value]="lista.length">Todos</option>
+              </select>
+            </div>
 
-                  <!-- <div class="d-flex justify-content-center"> -->
-                  <!-- modal -->
-                  <button type="button" class="btn btn-primary btn-rounded me-2 m-2 " mdbRipple
-                    (click)="edit(carro)">Editar</button>
-
-                  <button type="button" class="btn btn-danger btn-rounded me-2 m-2 " mdbRipple
-                    (click)="deleteById(carro)">Deletar</button>
-                  <!-- </div> -->
-                </td>
-              </tr>
-              }
-            </tbody>
-          </table>
+            <!-- Paginação -->
+            <!-- <nav aria-label="container"> -->
+            <nav aria-label="Page navigation ">
+              <!-- <ul class="pagination d-flex justify-content-end"> -->
+              <ul class="pagination mb-0 ">
+                <!-- <li class="page-item active"> -->
+                <li class="page-item me-2 " [class.disabled]="currentPage === 1">
+                  <!-- <a class="page-link" href="#" tabindex="-1">Anterior</a> -->
+                  <a class="btn btn-rounded btn-sm border" (click)="changePage(currentPage - 1)">
+                    Anterior</a>
+                </li>
+                <!-- <li class="page-item"><a class="page-link" href="#">1</a></li> -->
+                <li class="page-item me-2" *ngFor="let page of totalPagesArray" [class.active]="page === currentPage">
+                  <a class="page-link " (click)="changePage(page)">{{page}}</a>
+                </li>
+                <li class="page-item" [class.disabled]="currentPage === totalPages">
+                  <!-- <a class="page-link" href="#">2 <span class="sr-only">(atual)</span></a> -->
+                  <a class="btn btn-rounded btn-sm border" (click)="changePage(currentPage + 1)">Próximo</a>
+                </li>
+              </ul>
+            </nav>
+          </div>
         </div>
       </div>
     </div>

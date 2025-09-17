@@ -5,11 +5,13 @@ import Swal from 'sweetalert2';
 import { MdbModalModule, MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { MarcasdetailsComponent } from '../marcasdetails/marcasdetails.component';
 import { MarcaService } from './../../../services/marca.service';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-marcaslist',
   standalone: true,
-  imports: [RouterLink, MdbModalModule, MarcasdetailsComponent],
+  imports: [RouterLink, MdbModalModule, MarcasdetailsComponent, CommonModule, FormsModule],
   templateUrl: './marcaslist.component.html',
   styleUrl: './marcaslist.component.scss'
 })
@@ -20,10 +22,15 @@ export class MarcaslistComponent {
   // Para modal
   marcaEdit: Marca = new Marca(0, "");
 
+  //Paginação
+  pageSize = 7;     // registros por página
+  currentPage = 1;  // página atual
+  totalPages = 1;   // calculado automaticamente
+
   @Input("esconderBtn") esconderBtn: boolean = false;
   @Output("retorno") retorno = new EventEmitter<any>();
 
-//Trabalhando com modal e não router
+  //Trabalhando com modal e não router
   modalService = inject(MdbModalService);
   //Para o ng templante esconder e chama o modal
   @ViewChild("modalMarcaDetalhe") modalMarcaDetalhe!: TemplateRef<any>;
@@ -33,7 +40,7 @@ export class MarcaslistComponent {
   marcaService = inject(MarcaService);
 
   constructor() {
-     //deixa igual o back
+    //deixa igual o back
     // this.findAll();
     this.listAll();
 
@@ -70,6 +77,9 @@ export class MarcaslistComponent {
       next: lista => {
         //Essa lista vem da lista do array acima, que recebe a lista do back!
         this.lista = lista;
+
+        // Paginação: Calcula a quantidade total de páginas depois que os dados chegaram
+        this.totalPages = Math.ceil(this.lista.length / this.pageSize);
       },
       //Aqui retorna erro (badrequest, exceptions) do back
       error: erro => {
@@ -124,6 +134,8 @@ export class MarcaslistComponent {
         });
       }
     });
+    // Paginação
+    console.log('deletar', marca);
   }
   //Para modal chamo o identificado da ng template para os metodos do btn new/edit
   //e adciono o @input na carrodetails para trazer os dados no campo
@@ -139,6 +151,8 @@ export class MarcaslistComponent {
     //for digitado e cancelado o dado acaba sendo registrado
     this.marcaEdit = Object.assign({}, marca);
     this.modalRef = this.modalService.open(this.modalMarcaDetalhe);
+    // Paginação
+    console.log('editar', marca);
   }
 
   //LISTAR
@@ -153,4 +167,38 @@ export class MarcaslistComponent {
   select(marca: Marca) {
     this.retorno.emit(marca);
   }
+//Paginação
+  get totalPagesArray() {
+    return Array(this.totalPages).fill(0).map((_, i) => i + 1);
+  }
+
+  getItemsPaginated() {
+    const start = (this.currentPage - 1) * this.pageSize;
+    return this.lista.slice(start, start + this.pageSize);
+  }
+
+  changePage(page: number) {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+    }
+  }
+
+  onPageSizeChange() {
+    this.totalPages = Math.ceil(this.lista.length / this.pageSize);
+    this.currentPage = 1; // volta para a primeira página
+  }
+
+  // Paginação itens
+  previousPage() {
+    if (this.currentPage > 1) this.currentPage--;
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) this.currentPage++;
+  }
+
+  goToPage(page: number) {
+    this.currentPage = page;
+  }
 }
+

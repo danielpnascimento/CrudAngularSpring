@@ -5,11 +5,13 @@ import Swal from 'sweetalert2';
 import { MdbModalModule, MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { AcessoriosdetailsComponent } from "../acessoriosdetails/acessoriosdetails.component";
 import { AcessorioService } from '../../../services/acessorio.service';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-acessorioslist',
   standalone: true,
-  imports: [RouterLink, MdbModalModule, AcessoriosdetailsComponent],
+  imports: [RouterLink, MdbModalModule, AcessoriosdetailsComponent, CommonModule, FormsModule],
   templateUrl: './acessorioslist.component.html',
   styleUrl: './acessorioslist.component.scss'
 })
@@ -18,6 +20,11 @@ export class AcessorioslistComponent {
   lista: Acessorio[] = [];
   // Para modal
   acessorioEdit: Acessorio = new Acessorio(0, "");
+
+  //Paginação
+  pageSize = 7;     // registros por página
+  currentPage = 1;  // página atual
+  totalPages = 1;   // calculado automaticamente
 
   @Input("esconderBtn") esconderBtn: boolean = false;
   @Output("retorno") retorno = new EventEmitter<any>();
@@ -69,6 +76,9 @@ export class AcessorioslistComponent {
       next: lista => {
         //Essa lista vem da lista do array acima, que recebe a lista do back!
         this.lista = lista;
+
+        // Paginação: Calcula a quantidade total de páginas depois que os dados chegaram
+        this.totalPages = Math.ceil(this.lista.length / this.pageSize);
       },
       //Aqui retorna erro (badrequest, exceptions) do back
       error: erro => {
@@ -123,6 +133,8 @@ export class AcessorioslistComponent {
         });
       }
     });
+    // Paginação
+    console.log('deletar', acessorio);
   }
   //Para modal chamo o identificado da ng template para os metodos do btn new/edit
   //e adciono o @input na carrodetails para trazer os dados no campo
@@ -134,6 +146,8 @@ export class AcessorioslistComponent {
   edit(acessorio: Acessorio) {
     this.acessorioEdit = Object.assign({}, acessorio);
     this.modalRef = this.modalService.open(this.modalAcessorioDetalhe);
+    // Paginação
+    console.log('editar', acessorio);
   }
 
   //LISTAR
@@ -151,4 +165,38 @@ export class AcessorioslistComponent {
   select(acessorio: Acessorio) {
     this.retorno.emit(acessorio);
   }
+//Paginação
+  get totalPagesArray() {
+    return Array(this.totalPages).fill(0).map((_, i) => i + 1);
+  }
+
+  getItemsPaginated() {
+    const start = (this.currentPage - 1) * this.pageSize;
+    return this.lista.slice(start, start + this.pageSize);
+  }
+
+  changePage(page: number) {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+    }
+  }
+
+  onPageSizeChange() {
+    this.totalPages = Math.ceil(this.lista.length / this.pageSize);
+    this.currentPage = 1; // volta para a primeira página
+  }
+
+  // Paginação itens
+  previousPage() {
+    if (this.currentPage > 1) this.currentPage--;
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) this.currentPage++;
+  }
+
+  goToPage(page: number) {
+    this.currentPage = page;
+  }
 }
+

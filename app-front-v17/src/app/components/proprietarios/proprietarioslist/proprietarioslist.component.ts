@@ -4,11 +4,13 @@ import { MdbModalModule, MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit
 import Swal from 'sweetalert2';
 import { ProprietariosdetailsComponent } from '../proprietariosdetails/proprietariosdetails.component';
 import { ProprietarioService } from '../../../services/proprietario.service';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-proprietarioslist',
   standalone: true,
-  imports: [MdbModalModule, ProprietariosdetailsComponent],
+  imports: [MdbModalModule, ProprietariosdetailsComponent, CommonModule, FormsModule],
   templateUrl: './proprietarioslist.component.html',
   styleUrl: './proprietarioslist.component.scss'
 })
@@ -17,6 +19,12 @@ export class ProprietarioslistComponent {
   lista: Proprietario[] = [];
   // Para modal
   proprietarioEdit: Proprietario = new Proprietario(0, "");
+
+  //Paginação
+  pageSize = 7;     // registros por página
+  currentPage = 1;  // página atual
+  totalPages = 1;   // calculado automaticamente
+
 
   @Input("esconderBtn") esconderBtn: boolean = false;
   @Output("retorno") retorno = new EventEmitter<any>();
@@ -68,6 +76,9 @@ export class ProprietarioslistComponent {
       next: lista => {
         //Essa lista vem da lista do array acima, que recebe a lista do back!
         this.lista = lista;
+
+        // Paginação: Calcula a quantidade total de páginas depois que os dados chegaram
+        this.totalPages = Math.ceil(this.lista.length / this.pageSize);
       },
       //Aqui retorna erro (badrequest, exceptions) do back
       error: erro => {
@@ -122,6 +133,8 @@ export class ProprietarioslistComponent {
         });
       }
     });
+    // Paginação
+    console.log('deletar', proprietario);
   }
   //Para modal chamo o indentificado da ng template para os metodos do btn new/edit
   //e adciono o @input na carrodetails para trazer os dados no campo
@@ -133,6 +146,8 @@ export class ProprietarioslistComponent {
   edit(proprietario: Proprietario) {
     this.proprietarioEdit = Object.assign({}, proprietario);
     this.modalRef = this.modalService.open(this.modalProprietarioDetalhe);
+    // Paginação
+    console.log('editar', proprietario);
   }
 
   //LISTAR
@@ -149,5 +164,38 @@ export class ProprietarioslistComponent {
   // Pego o marca que vem do html
   select(proprietario: Proprietario) {
     this.retorno.emit(proprietario);
+  }
+//Paginação
+  get totalPagesArray() {
+    return Array(this.totalPages).fill(0).map((_, i) => i + 1);
+  }
+
+  getItemsPaginated() {
+    const start = (this.currentPage - 1) * this.pageSize;
+    return this.lista.slice(start, start + this.pageSize);
+  }
+
+  changePage(page: number) {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+    }
+  }
+
+  onPageSizeChange() {
+    this.totalPages = Math.ceil(this.lista.length / this.pageSize);
+    this.currentPage = 1; // volta para a primeira página
+  }
+
+  // Paginação itens
+  previousPage() {
+    if (this.currentPage > 1) this.currentPage--;
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) this.currentPage++;
+  }
+
+  goToPage(page: number) {
+    this.currentPage = page;
   }
 }
