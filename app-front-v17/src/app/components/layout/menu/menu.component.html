@@ -18,26 +18,26 @@
         <!-- Aqui que adcionamos a retrições de users que pode acessar -->
         @if(loginService.hasPermission("ADMIN")){
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="admin/carros">Carros</a>
+          <a class="nav-link active" aria-current="page" href="/admin/carros">Carros</a>
         </li>
         }
         <!-- E se quiser adcionar retrições ao admin -->
         @if(loginService.hasPermission("USER")){
         <li class="nav-item">
-          <a class="nav-link" href="admin/marcas">Marcas</a>
+          <a class="nav-link" href="/admin/marcas">Marcas</a>
         </li>
         }
         <!-- ou liberar uma aba para os dois -->
         @if(loginService.hasPermission("USER") || loginService.hasPermission("ADMIN")){
         <li class="nav-item">
-          <a class="nav-link" href="admin/acessorios">Acessórios</a>
+          <a class="nav-link" href="/admin/acessorios">Acessórios</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="admin/proprietarios">Proprietários</a>
+          <a class="nav-link" href="/admin/proprietarios">Proprietários</a>
         </li>
         }
         <li class="nav-item">
-          <a class="nav-link" href="login">Sair</a>
+          <a class="nav-link" href="/login">Sair</a>
         </li>
 
       </ul>
@@ -46,7 +46,5 @@
       <a class="navbar-brand text-capitalize" href="/">{{usuario.username}}</a>
 
     </div>
-    <!-- Collapsible wrapper -->
   </div>
-  <!-- Container wrapper -->
 </nav>
