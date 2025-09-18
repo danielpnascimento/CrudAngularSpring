@@ -1,24 +1,27 @@
-<div class="container pt-4">
+<div class="container">
   <div class="row">
-    <div class="col-lg-12 centralizar topo">
+    <!-- <div class="col-lg-4"></div> -->
+    <!-- <div class="col-lg-12 centralizar topo"> -->
+    <div class="col-lg-12 text-center small-responsive">
       <div class="card">
-        <div class="card-body">
-          <h3>Cadastre o Acessório</h3>
-          <br>
-          <mdb-form-control>
-            <input mdbInput type="text" id="usuario" class="form-control" [(ngModel)]="acessorio.nome" />
-            <label mdbLabel class="form-label" for="usuario">Nome</label>
-          </mdb-form-control>
-          <br>
-          <mdb-form-control>
-            <input mdbInput type="text" id="usuario" class="form-control" [(ngModel)]="acessorio.quantidade" />
-            <label mdbLabel class="form-label" for="usuario">Quantidade</label>
-          </mdb-form-control>
-          <br>
-          <button type="button" class="btn btn-primary btn-rounded" mdbRipple (click)="save()">Salvar</button>
+        <div class="card-body row d-flex justify-content-center">
+          <h3 class="pb-2">Cadastre o Acessório</h3>
+          <div class="d-flex justify-content-evenly ">
+            <mdb-form-control class="w-50">
+              <input mdbInput type="text" id="usuario" class="form-control small-person" [(ngModel)]="acessorio.nome" />
+              <label mdbLabel class="form-label" for="usuario">Nome</label>
+            </mdb-form-control>
+            <mdb-form-control class="w-25">
+              <input mdbInput type="number" id="usuario" class="form-control small-person"
+                [(ngModel)]="acessorio.quantidade" />
+              <label mdbLabel class="form-label" for="usuario">Quantidade</label>
+            </mdb-form-control>
+          </div>
+          <button type="button" class="btn btn-primary btn-rounded mt-3 w-50 px-3 py-1 px-sm-4" mdbRipple
+            (click)="save()">Salvar</button>
         </div>
       </div>
     </div>
   </div>
 </div>
- <!-- Tela/form de cadastro de carro ao clicar no btn novo -->
+<!-- Tela/form de cadastro de carro ao clicar no btn novo -->

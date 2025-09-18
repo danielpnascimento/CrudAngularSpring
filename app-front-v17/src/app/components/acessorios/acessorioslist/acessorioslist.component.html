@@ -77,8 +77,7 @@
                 <!-- <li class="page-item active"> -->
                 <li class="page-item me-2 " [class.disabled]="currentPage === 1">
                   <!-- <a class="page-link" href="#" tabindex="-1">Anterior</a> -->
-                  <a class="btn btn-rounded btn-sm border" (click)="changePage(currentPage - 1)">
-                    Anterior</a>
+                  <a class="btn btn-rounded btn-sm border" (click)="changePage(currentPage - 1)"><</a>
                 </li>
                 <!-- <li class="page-item"><a class="page-link" href="#">1</a></li> -->
                 <li class="page-item me-2" *ngFor="let page of totalPagesArray" [class.active]="page === currentPage">
@@ -86,7 +85,7 @@
                 </li>
                 <li class="page-item" [class.disabled]="currentPage === totalPages">
                   <!-- <a class="page-link" href="#">2 <span class="sr-only">(atual)</span></a> -->
-                  <a class="btn btn-rounded btn-sm border" (click)="changePage(currentPage + 1)">Próximo</a>
+                  <a class="btn btn-rounded btn-sm border" (click)="changePage(currentPage + 1)">></a>
                 </li>
               </ul>
             </nav>
@@ -101,7 +100,7 @@
 <ng-template #modalAcessorioDetalhe>
 
   <div class="modal-header">
-    <h5 class="modal-title" id="exampleModalLabel">Acessórios</h5>
+    <h5 class="modal-title fs-5" id="exampleModalLabel">Acessórios</h5>
     <button type="button" class="btn-close" aria-label="Close" (click)="modalRef.close()"></button>
   </div>
   <div class="modal-body">

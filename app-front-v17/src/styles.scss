@@ -4,18 +4,47 @@
 
 //Centralizar do cadastro
 .centralizar{
-    text-align: center;
+    // text-align: center;
+}
+
+//Fixando largura fixa pq não tem classe do bootstrap
+.card-fixo {
+  width:400px;   /* largura fixa */
 }
 
 .direita{
-    text-align: right;
-
+    // text-align: right;
 }
 
 body{
     background-color: rgb(226, 226, 226);
     //  background-color: #c9c9c9;
 }
+
+.small-person{
+  font-size: 0.75rem; /* menor em telas pequenas */
+}
+
+/* Classe responsiva para fonte menor que small */
+.small-responsive {
+  font-size: 0.85rem; /* tamanho normal por padrão */
+
+  @media (max-width: 767.98px) {
+    font-size: 0.75rem; /* menor em telas pequenas */
+  }
+}
+
+//Scroll vertical
+.table-wrapper {
+  max-height: 450px;       /* altura máxima da tabela */
+  overflow-y: auto;        /* scroll vertical dentro da tabela */
+  display: block;
+
+  @media (max-width: 667px) {
+    // max-height: 450px;       /* altura máxima da tabela */
+  }
+}
+
 // .swal2-container {
 //     z-index: 99999;
 //   }
