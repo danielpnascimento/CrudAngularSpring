@@ -23,4 +23,3 @@
 - user
 
 ![Sistema Carro](https://github.com/user-attachments/assets/d4ec3b57-87bc-4096-9267-ed301b1ed23f)
-<img width="1436" height="9692" alt="SliderFinal" src="https://github.com/user-attachments/assets/51dac7ac-64de-409e-9968-dbb2fdbbcd26" />
