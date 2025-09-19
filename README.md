@@ -6,6 +6,15 @@
 - Angular v17
 - Mdbootstrap
 - Sweetalert2 para as msg de alerta stilos/animados
+
+## Melhorias
+
+- Paginação automatica diminuindo ou aumentando conforme o volume da tabela.
+- Ativado o link ativo na abas no navegador conforme sua página.
+- Habilitado scroll interno nas tabelas para mobile sem estourar.
+- Paginação de quantidade de itens na tabela.
+- Modo responsivo até mobile.
+- Personalização nas details.
   
 **Back-end:**
 - Spring boot "RestController"
