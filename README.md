@@ -22,5 +22,4 @@
 - user
 - user
 
-
-![SliderFinal1](https://github.com/user-attachments/assets/12d5f4d4-2767-479a-8027-6ecb2737e4cf)
+![SliderFinal](https://github.com/user-attachments/assets/e3157607-f081-43fc-b63d-67f591436853)
