@@ -16,7 +16,7 @@
 
 - https://youtu.be/mzF7OEd8SRE?si=KAE6G18hz0gDyKI0
 
-## Melhorias Adcionandas
+## Melhorias Adcionadas
 - Paginação automatica diminuindo ou aumentando conforme o volume da tabela.
 - Ativado o link ativo na abas no navegador conforme sua página.
 - Habilitado scroll interno nas tabelas para mobile sem estourar.
