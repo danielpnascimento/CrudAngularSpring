@@ -22,6 +22,5 @@
 - user
 - user
 
-<img width="1208" height="4006" alt="image" src="https://github.com/user-attachments/assets/72104a11-98c6-46ea-9f1a-13ec96ed0272" />
 
-
+![SliderFinal1](https://github.com/user-attachments/assets/12d5f4d4-2767-479a-8027-6ecb2737e4cf)
