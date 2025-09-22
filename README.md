@@ -1,4 +1,4 @@
-## 🚀 Crud finalizado!
+## 🚀 Projeto finalizado!
 
 ## 🛠 Construção
 
