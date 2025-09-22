@@ -10,7 +10,8 @@
 **Back-end:**
 - Spring boot "RestController"
 - MySql
-- JWT e Spring Security "Bloqueio/proteção de acesso/rotas ao bd da aplicação"
+- JWT e Spring Security "Bloqueio/proteção de acesso/rotas ao bd da aplicação" que é Login de usuário criptografado "Bcrypt" com a hash no banco "back". 
+
 
 ## Autor
 
