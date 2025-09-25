@@ -32,4 +32,4 @@
 - User: user
 - Senha: user
 
-![SliderFinal](https://github.com/user-attachments/assets/e01d41f6-bae5-4782-8783-80ddf6b84b1c)
+![SliderFinal](https://github.com/user-attachments/assets/da875e04-1353-424f-8f76-ba5f514830b1)
